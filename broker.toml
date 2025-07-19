@@ -117,7 +117,7 @@ reaper_grace_period_secs = 45
 # 发布前的最大批次持续时间(秒)
 batch_max_time = 1000
 # 发布前的批次大小(证明数)
-min_batch_size = 3
+min_batch_size = 1
 # 批次区块时间缓冲
 # 在订单批次中最低区块截止时间之前刷新批次的秒数
 block_deadline_buffer_secs = 180
