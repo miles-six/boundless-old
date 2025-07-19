@@ -11,12 +11,18 @@ priority_requestor_addresses = [
         "0x48268bE6235A23eb7b67356469362869D5d0293f",
         "0x0466ACfc0F27bBA9fBB7A8508f576527e81E83Bd",
 ]
+Requestor Addresses = [
+"0x2546c553d857d20658ece248f7c7d0861a240681",
+"0xc2db89b2bd434ceac6c74fbc0b2ad3a280e66db0",
+"0x734dF7809c4ef94Da037449C287166D114503198",
+"0x3Ee7d9175eC8BB9e16e8FD3AbDEF5a354b247528",
+]
 # 证明集群的估计峰值性能，单位为kHz
 # 用于估计证明能力，只接受证明者能处理的工作量
-peak_prove_khz = 1000
+peak_prove_khz = 12000
 # 最大周期数限制(以百万周期计)
 # 超过此限制的订单将在预执行后被跳过
-max_mcycle_limit = 8000
+max_mcycle_limit = 300000
 # 最大日志大小(字节)
 # 预执行产生的日志超过此大小的订单将被跳过
 max_journal_bytes = 10000
@@ -43,7 +49,7 @@ max_fetch_retries = 5
 max_concurrent_proofs = 4
 # 同时处理定价的最大订单数
 # 用于限制生成的定价任务，防止系统过载
-max_concurrent_preflights = 8
+max_concurrent_preflights = 4
 # 订单定价优先级模式
 # 决定订单定价的优先顺序
 # 使用random模式，增加竞争机会
@@ -56,7 +62,7 @@ max_critical_task_retries = 10
 # lockRequest优先级gas
 # 为锁定请求交易添加的额外gas，用于在多个证明者同时竞争时提高优先级
 # 优化gas优先级，平衡抢单成功率和成本
-lockin_priority_gas = 1000
+lockin_priority_gas = 1000_000_0
 # 并行订单获取并发级别
 # 控制同时尝试锁定的订单数量，提高抢单成功率
 # 根据服务器性能调整并行能力
