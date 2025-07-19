@@ -1,0 +1,137 @@
+[market]
+# Mega-cycle价格，以原生代币(ETH)计价
+# 每百万RISC-V周期的价格，用于计算订单最低接受价格
+# 设置为合理的低值，确保接受大部分订单
+mcycle_price = "0.00000000005"
+# Mega-cycle价格，以Boundless质押代币计价
+# 用于计算过期锁定订单的最低接受价格
+mcycle_price_stake_token = "0.000000001"
+# 优先请求者地址列表，可以绕过mcycle限制和最大输入大小限制
+priority_requestor_addresses = [
+        "0x48268bE6235A23eb7b67356469362869D5d0293f",
+        "0x0466ACfc0F27bBA9fBB7A8508f576527e81E83Bd",
+]
+# 证明集群的估计峰值性能，单位为kHz
+# 用于估计证明能力，只接受证明者能处理的工作量
+peak_prove_khz = 50000
+# 最大周期数限制(以百万周期计)
+# 超过此限制的订单将在预执行后被跳过
+max_mcycle_limit = 18000
+# 最大日志大小(字节)
+# 预执行产生的日志超过此大小的订单将被跳过
+max_journal_bytes = 40000
+# 考虑竞标请求的截止时间前的最小剩余秒数
+# 如果截止时间前没有足够时间，证明者可能无法在到期前完成订单
+# 适度减少最低截止时间，接受更多可完成的订单
+min_deadline = 20
+# 提前锁定秒数，影响抢单策略，0为立即锁定
+# 设置为0，最大化抢单机会
+lock_ahead_secs = 0
+# 启动时，查找可能的开放订单的区块回溯数量
+# 设置为合理的数值，避免检索过多无效区块
+lookback_blocks = 30
+# 最大质押金额，以Boundless质押代币计价
+# 要求更高质押的请求将不被考虑
+max_stake = "10.0"
+# 允许从请求URL下载的最大输入/镜像文件大小
+max_file_size = 100000000
+# 从URL获取输入/镜像内容的最大重试次数
+max_fetch_retries = 5
+# 最大并发锁定数
+# 可以同时处理的最大证明数量
+# 提高并发数，充分利用GPU
+max_concurrent_proofs = 10
+# 同时处理定价的最大订单数
+# 用于限制生成的定价任务，防止系统过载
+max_concurrent_preflights = 8
+# 订单定价优先级模式
+# 决定订单定价的优先顺序
+# 使用random模式，增加竞争机会
+order_pricing_priority = "random"
+# 订单承诺优先级模式
+# 决定承诺证明订单的优先顺序
+order_commitment_priority = "shortest_expiry"
+# 可恢复故障时的最大关键任务重试次数
+max_critical_task_retries = 8
+# lockRequest优先级gas
+# 为锁定请求交易添加的额外gas，用于在多个证明者同时竞争时提高优先级
+# 优化gas优先级，平衡抢单成功率和成本
+lockin_priority_gas = 500000000
+# 并行订单获取并发级别
+# 控制同时尝试锁定的订单数量，提高抢单成功率
+# 根据服务器性能调整并行能力
+parallel_order_concurrency = 12
+# 余额警告阈值(原生代币)
+# 如果提交者余额低于此值，broker将发出警告日志
+balance_warn_threshold = "0.05"
+# 余额错误阈值(原生代币)
+# 如果提交者余额低于此值，broker将发出错误日志
+balance_error_threshold = "0.02"
+# 质押余额警告阈值(质押代币)
+# 如果质押余额低于此值，broker将发出警告日志
+stake_balance_warn_threshold = "10"
+# 质押余额错误阈值(质押代币)
+# 如果质押余额低于此值，broker将发出错误日志
+stake_balance_error_threshold = "6"
+# 存储下载镜像和输入的缓存目录
+# 如果未设置，每次都会重新下载文件
+cache_dir = "./cache"
+# lockin调用的gas估计
+# 用于在定价期间估计与订单相关的gas成本
+lockin_gas_estimate = 200000
+# fulfill调用的gas估计
+# 用于在定价期间估计与订单相关的gas成本
+fulfill_gas_estimate = 300000
+# 使用RiscZeroGroth16Verifier的证明验证gas估计
+# 用于在定价期间估计与订单相关的gas成本
+groth16_verify_gas_estimate = 250000
+
+[prover]
+# 可选配置，如果使用bonsai，在此设置zkVM版本
+bonsai_r0_zkvm_ver = "2.1.0"
+# 轮询证明状态的重试次数
+# 为短暂故障提供一些持久性
+status_poll_retry_count = 5
+# 监控证明状态的轮询间隔(毫秒)
+# 减少轮询间隔，实现更快响应
+status_poll_ms = 10
+# 失败时查询证明者后端的重试次数
+# 用于对证明者后端的API请求、创建会话、预执行、上传镜像等
+req_retry_count = 5
+# 重试间隔(毫秒)
+# 设置合理的重试间隔
+req_retry_sleep_ms = 50
+# 运行整个证明生成过程的重试次数
+# 这与请求重试次数分开，因为证明过程是一个多步骤过程
+proof_retry_count = 3
+# 证明重试间隔(毫秒)
+proof_retry_sleep_ms = 100
+# 检查过期已提交订单的间隔(秒)
+# 这是ReaperTask检查过期订单并将其标记为失败的间隔
+reaper_interval_secs = 20
+# 将过期订单标记为失败前的宽限期(秒)
+# 这为订单过期后提供缓冲时间，然后reaper将其标记为失败
+reaper_grace_period_secs = 45
+
+[batcher]
+# 发布前的最大批次持续时间(秒)
+batch_max_time = 180
+# 发布前的批次大小(证明数)
+min_batch_size = 2
+# 批次区块时间缓冲
+# 在订单批次中最低区块截止时间之前刷新批次的秒数
+block_deadline_buffer_secs = 40
+# 交易确认超时(秒)
+txn_timeout = 45
+# 使用将submit_merkle / fulfill_batch批处理到单个交易中的单个TXN提交
+# 需要部署的合约上存在`submitRootAndFulfill`方法
+single_txn_fulfill = true
+# 是否在履行时从证明者余额中提款
+withdraw = true
+# 轮询时间(毫秒)
+# 轮询新订单进行聚合以及检查批次完成条件的时间间隔
+batch_poll_time_ms = 10
+# 超过后将触发发布的最大合并日志大小(字节)
+batch_max_journal_bytes = 15000
+# 提交批次的最大尝试次数
+max_submission_attempts = 3
