@@ -40,7 +40,7 @@ max_fetch_retries = 5
 # 最大并发锁定数
 # 可以同时处理的最大证明数量
 # 提高并发数，充分利用GPU
-max_concurrent_proofs = 2
+max_concurrent_proofs = 4
 # 同时处理定价的最大订单数
 # 用于限制生成的定价任务，防止系统过载
 max_concurrent_preflights = 8
